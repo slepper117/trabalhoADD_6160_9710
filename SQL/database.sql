@@ -57,9 +57,9 @@ CREATE TYPE tpratico.tipo_prod AS ENUM ('SOFTWARE', 'HARDWARE');
 --- CRIA AS TABELAS
 -----------------------------------------
 CREATE TABLE tpratico.produto (
-	cod_produto 	SERIAL 					NOT NULL,
+	cod_produto 	SERIAL 								NOT NULL,
 	tipo_produto 	tpratico.tipo_prod 		NOT NULL,
-	nome_produto 	VARCHAR(25) 			NOT NULL,
+	nome_produto 	VARCHAR(25) 					NOT NULL,
 	CONSTRAINT produto_pk PRIMARY KEY (cod_produto)
 );
 
@@ -71,94 +71,94 @@ CREATE TABLE tpratico.software (
 
 
 CREATE TABLE tpratico.hardware (
-	cod_hardware 	INT 	NOT NULL,
+	cod_hardware 		INT 	NOT NULL,
 	cod_fornecedor 	INT 	NOT NULL 	DEFAULT 1,
-	cod_software 	INT 	NOT NULL 	DEFAULT 1,
+	cod_software 		INT 	NOT NULL 	DEFAULT 1,
 	CONSTRAINT hardware_pk PRIMARY KEY (cod_hardware)
 );
 
 
 CREATE TABLE tpratico.fornecedor (
-	cod_fornecedor 		INT 			NOT NULL 	CHECK(cod_fornecedor > 0),
+	cod_fornecedor 		INT 					NOT NULL 	CHECK(cod_fornecedor > 0),
 	nome_fornecedor 	VARCHAR(25) 	NOT NULL,
 	CONSTRAINT fornecedor_pk PRIMARY KEY (cod_fornecedor)
 );
 
 
 CREATE TABLE tpratico.ticket_distribuidor (
-	cod_tk_dist 			INT 			NOT NULL 	CHECK(cod_tk_dist > 0),
-	cod_produto 			INT 			NOT NULL,
-	cod_cliente 			INT 			NOT NULL,
-	cod_distribuidor 		INT 			NOT NULL,
-	cod_tk_estado 			INT 			NOT NULL 	DEFAULT 1,
-	assunto_tk_dist 		VARCHAR(250),
+	cod_tk_dist 					INT 						NOT NULL 	CHECK(cod_tk_dist > 0),
+	cod_produto 					INT 						NOT NULL,
+	cod_cliente 					INT 						NOT NULL,
+	cod_distribuidor 			INT 						NOT NULL,
+	cod_tk_estado 				INT 						NOT NULL 	DEFAULT 1,
+	assunto_tk_dist 			VARCHAR(250),
 	descricao_tk_dist 		TEXT,
-	lic_tk_dist				VARCHAR(250)	NOT NULL,
-	dt_tk_dist 				TIMESTAMP 		NOT NULL 	DEFAULT NOW(),
+	lic_tk_dist						VARCHAR(250)		NOT NULL,
+	dt_tk_dist 						TIMESTAMP 			NOT NULL 	DEFAULT NOW(),
 	CONSTRAINT tk_PRIMARY PRIMARY KEY (cod_tk_dist)
 );
 
 
 CREATE TABLE tpratico.distribuidor (
-	cod_distribuidor 	INT 			NOT NULL 	CHECK(cod_distribuidor > 0),
+	cod_distribuidor 		INT 					NOT NULL 	CHECK(cod_distribuidor > 0),
 	nome_distribuidor 	VARCHAR(250) 	NOT NULL,
 	CONSTRAINT dist_pk PRIMARY KEY (cod_distribuidor)
 );
 
 
 CREATE TABLE tpratico.venda (
-	cod_produto 		INT 		NOT NULL,
-	cod_distribuidor 	INT 		NOT NULL,
-	dt_venda 			TIMESTAMP 	NOT NULL	DEFAULT NOW(),
+	cod_produto 			INT 				NOT NULL,
+	cod_distribuidor 	INT 				NOT NULL,
+	dt_venda 					TIMESTAMP 	NOT NULL	DEFAULT NOW(),
 	CONSTRAINT vendas_pk PRIMARY KEY (cod_produto, cod_distribuidor)
 );
 
 
 CREATE TABLE tpratico.mensagens_cliente (
-	cod_msg_cl 		INT 		NOT NULL  	CHECK(cod_msg_cl > 0),
-	cod_tk_dist 	INT 		NOT NULL,
-	txt_msg_cl 		TEXT 		NOT NULL,
-	dt_msg_cl 		TIMESTAMP 	NOT NULL 	DEFAULT NOW(),
+	cod_msg_cl 		INT 				NOT NULL  	CHECK(cod_msg_cl > 0),
+	cod_tk_dist 	INT 				NOT NULL,
+	txt_msg_cl 		TEXT 				NOT NULL,
+	dt_msg_cl 		TIMESTAMP 	NOT NULL 		DEFAULT NOW(),
 	CONSTRAINT msg_cl_pk PRIMARY KEY (cod_msg_cl)
 );
 
 
 CREATE TABLE tpratico.cliente (
-	cod_cliente 	INT 			NOT NULL 	  	CHECK(cod_cliente > 0),
+	cod_cliente 	INT 					NOT NULL 	  	CHECK(cod_cliente > 0),
 	nome_cliente 	VARCHAR(250) 	NOT NULL,
 	CONSTRAINT cliente_pk PRIMARY KEY (cod_cliente)
 );
 
 
 CREATE TABLE tpratico.ticket_estado (
-	cod_tk_estado 	INT 			NOT NULL 	CHECK(cod_tk_estado > 0),
+	cod_tk_estado 	INT 					NOT NULL 	CHECK(cod_tk_estado > 0),
 	nome_tk_estado 	VARCHAR(10),
 	CONSTRAINT tk_estado_pk PRIMARY KEY (cod_tk_estado)
 );
 
 
 CREATE TABLE tpratico.ticket (
-	cod_tk 					INT 			NOT NULL 	CHECK(cod_tk > 0),
-	cod_tk_dist 			INT 			NOT NULL,
-	cod_tk_estado 			INT 			NOT NULL 	DEFAULT 1,
+	cod_tk 								INT 						NOT NULL 	CHECK(cod_tk > 0),
+	cod_tk_dist 					INT 						NOT NULL,
+	cod_tk_estado 				INT 						NOT NULL 	DEFAULT 1,
 	cod_utilizador_resp 	INT,
-	assunto_tk 				VARCHAR(250),
-	descricao_tk 			TEXT,
-	dt_tk 					TIMESTAMP 		NOT NULL 	DEFAULT NOW(),
+	assunto_tk 						VARCHAR(250),
+	descricao_tk 					TEXT,
+	dt_tk 								TIMESTAMP 			NOT NULL 	DEFAULT NOW(),
 	CONSTRAINT tk_pk PRIMARY KEY (cod_tk)
 );
 
 
 CREATE TABLE tpratico.utilizador (
-	cod_utilizador 			INT 			NOT NULL 	CHECK(cod_utilizador > 0),
-	cod_tipo_utilizador 	INT 			NOT NULL,
-	nome_utilizador 		VARCHAR(250) 	NOT NULL,
+	cod_utilizador 				INT 					NOT NULL 	CHECK(cod_utilizador > 0),
+	cod_tipo_utilizador 	INT 					NOT NULL,
+	nome_utilizador 			VARCHAR(250) 	NOT NULL,
 	CONSTRAINT utilizador_pk PRIMARY KEY (cod_utilizador)
 );
 
 
 CREATE TABLE tpratico.tipo_utilizador (
-	cod_tipo_utilizador 	INT 			NOT NULL CHECK(cod_tipo_utilizador > 0),
+	cod_tipo_utilizador 	INT 						NOT NULL CHECK(cod_tipo_utilizador > 0),
 	nome_tipo_utilizador 	VARCHAR(10),
 	CONSTRAINT tp_utilizador_pk PRIMARY KEY (cod_tipo_utilizador)
 );
@@ -166,27 +166,27 @@ CREATE TABLE tpratico.tipo_utilizador (
 
 CREATE TABLE tpratico.ticket_utilizador (
 	cod_utilizador 	INT 	NOT NULL,
-	cod_tk 			INT 	NOT NULL,
+	cod_tk 					INT 	NOT NULL,
 	CONSTRAINT ticket_utilizador_pk PRIMARY KEY (cod_utilizador, cod_tk)
 );
 
 
 CREATE TABLE tpratico.mensagens_empresa (
-	cod_msg_emp		INT			NOT NULL 	CHECK(cod_msg_emp > 0),
-	cod_utilizador 	INT 		NOT NULL,
-	cod_tk 			INT 		NOT NULL,
-	txt_msg_emp 	TEXT 		NOT NULL,
-	dt_msg_emp 		TIMESTAMP 	NOT NULL	DEFAULT NOW(),
+	cod_msg_emp			INT					NOT NULL 	CHECK(cod_msg_emp > 0),
+	cod_utilizador 	INT 				NOT NULL,
+	cod_tk 					INT 				NOT NULL,
+	txt_msg_emp 		TEXT 				NOT NULL,
+	dt_msg_emp 			TIMESTAMP 	NOT NULL	DEFAULT NOW(),
 	CONSTRAINT msg_emp_pk PRIMARY KEY (cod_msg_emp)
 );
 
 
 CREATE TABLE tpratico.mensagens_distribuidor (
-	cod_msg_dist	INT			NOT NULL 	CHECK(cod_msg_dist > 0),
-	cod_utilizador 	INT 		NOT NULL,
-	cod_tk 			INT 		NOT NULL,
-	txt_msg_dist 	TEXT 		NOT NULL,
-	dt_msg_dist 	TIMESTAMP 	NOT NULL 	DEFAULT NOW(),
+	cod_msg_dist		INT					NOT NULL 	CHECK(cod_msg_dist > 0),
+	cod_utilizador 	INT 				NOT NULL,
+	cod_tk 					INT 				NOT NULL,
+	txt_msg_dist 		TEXT 				NOT NULL,
+	dt_msg_dist 		TIMESTAMP 	NOT NULL 	DEFAULT NOW(),
 	CONSTRAINT msg_dist_pk PRIMARY KEY (cod_msg_dist)
 );
 
